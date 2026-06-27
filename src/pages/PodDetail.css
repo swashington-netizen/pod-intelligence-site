@@ -1,0 +1,475 @@
+/* Pod detail page styling */
+
+.pod-detail {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.pod-detail-header {
+  margin: 0;
+}
+
+/* Hero Section */
+.pod-detail-hero {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F3F2F2 100%);
+  border: 2px solid #DDDBDA;
+  border-radius: 0.75rem;
+  padding: 2.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.pod-detail-hero-critical {
+  background: linear-gradient(135deg, #FFF5F5 0%, #FFFFFF 100%);
+  border: 3px solid #C23934;
+  box-shadow: 0 4px 16px rgba(194, 57, 52, 0.15);
+}
+
+.pod-detail-hero-content {
+  max-width: 100%;
+}
+
+.pod-detail-title-section {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.pod-detail-color-bar {
+  width: 8px;
+  min-height: 100px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.pod-detail-title-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pod-detail-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pod-detail-title {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #032D60;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.critical-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: #C23934;
+  color: #FFFFFF;
+  padding: 0.375rem 0.875rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.pod-detail-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.pod-detail-meta-separator {
+  color: #DDDBDA;
+  font-weight: 300;
+}
+
+.pod-detail-meta-text {
+  font-size: 0.9375rem;
+  color: #706E6B;
+  font-weight: 500;
+}
+
+/* Sections */
+.pod-detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #032D60;
+  margin: 0 0 1rem 0;
+}
+
+/* Mission Card */
+.mission-card {
+  background: linear-gradient(135deg, #E6F4FF 0%, #FFFFFF 100%);
+  border: 2px solid #0176D3;
+}
+
+.mission-text {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #032D60;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Business Value */
+.business-value-primary {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background-color: #F3F2F2;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.value-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.value-primary-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #032D60;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.business-value-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.business-value-item {
+  padding-left: 1.75rem;
+  position: relative;
+  color: #3E3E3C;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.business-value-item::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #027E46;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+/* Metrics Grid */
+.pod-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Roadmap */
+.roadmap-phases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Architecture */
+.architecture-description {
+  font-size: 1rem;
+  color: #3E3E3C;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+.architecture-section {
+  margin-bottom: 1.5rem;
+}
+
+.architecture-section:last-child {
+  margin-bottom: 0;
+}
+
+.architecture-subtitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #706E6B;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  margin: 0 0 0.75rem 0;
+}
+
+.architecture-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.architecture-tag {
+  display: inline-block;
+  background-color: #E6F4FF;
+  color: #0176D3;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1px solid #0176D3;
+}
+
+.integration-tag {
+  background-color: #F3F2F2;
+  color: #3E3E3C;
+  border-color: #DDDBDA;
+}
+
+/* Two Column Layout */
+.two-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Docs List */
+.docs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.doc-item {
+  display: flex;
+  gap: 0.875rem;
+  padding: 0.875rem;
+  background-color: #FAFAF9;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s ease;
+}
+
+.doc-item:hover {
+  background-color: #F3F2F2;
+}
+
+.doc-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.doc-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.doc-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #032D60;
+  margin-bottom: 0.25rem;
+}
+
+.doc-meta {
+  font-size: 0.75rem;
+  color: #706E6B;
+}
+
+.docs-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: #F3F2F2;
+  border: 1px dashed #DDDBDA;
+  border-radius: 0.375rem;
+}
+
+.placeholder-badge-small {
+  display: inline-block;
+  background-color: #0176D3;
+  color: #FFFFFF;
+  padding: 0.1875rem 0.5rem;
+  border-radius: 0.1875rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.placeholder-text-small {
+  font-size: 0.8125rem;
+  color: #706E6B;
+}
+
+/* Slack List */
+.slack-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.slack-item {
+  display: flex;
+  gap: 0.875rem;
+  padding: 0.875rem;
+  background-color: #FAFAF9;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s ease;
+}
+
+.slack-item:hover {
+  background-color: #F3F2F2;
+}
+
+.slack-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0176D3;
+  color: #FFFFFF;
+  border-radius: 0.25rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.slack-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.slack-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #032D60;
+  margin-bottom: 0.25rem;
+}
+
+.slack-description {
+  font-size: 0.8125rem;
+  color: #706E6B;
+  margin-bottom: 0.25rem;
+}
+
+.slack-members {
+  font-size: 0.75rem;
+  color: #0176D3;
+  font-weight: 500;
+}
+
+/* Demos List */
+.demos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.demo-item {
+  display: flex;
+  gap: 0.875rem;
+  padding: 0.875rem;
+  background-color: #FAFAF9;
+  border-radius: 0.375rem;
+}
+
+.demo-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.demo-content {
+  flex: 1;
+}
+
+.demo-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #032D60;
+  margin-bottom: 0.25rem;
+}
+
+.demo-meta {
+  font-size: 0.75rem;
+  color: #706E6B;
+}
+
+/* FAQ List */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Related Pods */
+.related-pods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.placeholder-text {
+  color: #706E6B;
+  font-style: italic;
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .two-column-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .pod-detail {
+    gap: 2rem;
+  }
+
+  .pod-detail-hero {
+    padding: 1.5rem;
+  }
+
+  .pod-detail-title {
+    font-size: 2rem;
+  }
+
+  .pod-detail-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pod-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .related-pods-grid {
+    grid-template-columns: 1fr;
+  }
+}
