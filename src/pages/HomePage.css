@@ -1,0 +1,141 @@
+.home-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.home-header h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #032D60;
+  margin-bottom: 16px;
+}
+
+.home-subtitle {
+  font-size: 18px;
+  color: #706E6B;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.groups-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.group-section {
+  background: white;
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.group-header {
+  border-left: 5px solid;
+  padding-left: 20px;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-header h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #032D60;
+  margin: 0;
+}
+
+.pod-count {
+  font-size: 14px;
+  color: #706E6B;
+  background: #F3F3F3;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.pods-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.pod-card {
+  background: white;
+  border: 1px solid #E0E0E0;
+  border-left: 4px solid;
+  border-radius: 6px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pod-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.pod-card-header {
+  margin-bottom: 12px;
+}
+
+.pod-card-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #032D60;
+  margin: 0;
+}
+
+.pod-mission {
+  font-size: 15px;
+  color: #706E6B;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+
+.pod-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid #F3F3F3;
+}
+
+.view-details {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0176D3;
+}
+
+/* Responsive layout */
+@media (max-width: 1300px) {
+  .groups-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-header h1 {
+    font-size: 36px;
+  }
+
+  .home-subtitle {
+    font-size: 16px;
+  }
+
+  .group-section {
+    padding: 24px;
+  }
+
+  .group-header h2 {
+    font-size: 24px;
+  }
+}

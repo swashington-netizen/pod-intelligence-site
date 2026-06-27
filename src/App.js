@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import StakeholderDashboard from './pages/StakeholderDashboard';
-import Dashboard from './pages/Dashboard';
-import PodDetail from './pages/PodDetail';
+import HomePage from './pages/HomePage';
+import PodDetailPage from './pages/PodDetailPage';
 import './App.css';
 
 function App() {
@@ -11,9 +10,8 @@ function App() {
     <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={<StakeholderDashboard />} />
-          <Route path="/executive" element={<Dashboard />} />
-          <Route path="/pod/:podId" element={<PodDetail />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/pods/:slug" element={<PodDetailPage />} />
         </Routes>
       </Layout>
     </Router>
