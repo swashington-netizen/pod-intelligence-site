@@ -1,70 +1,217 @@
-# Getting Started with Create React App
+# Agentic Sales Productivity Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack portfolio management system for tracking Agentic Sales Productivity initiatives across multiple pods and teams.
 
-## Available Scripts
+## Architecture Overview
 
-In the project directory, you can run:
+This is a monorepo containing both frontend and backend applications designed for production deployment on separate platforms.
 
-### `npm start`
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Architecture Diagram                     │
+├─────────────────────────────────────────────────────────────┤
+│                                                               │
+│  GitHub Pages                Heroku                          │
+│  ┌──────────────┐           ┌──────────────┐                │
+│  │   Frontend   │           │   Backend    │                │
+│  │  (React SPA) │◄─────────►│ (Node/Express)│               │
+│  └──────────────┘   REST    └──────┬───────┘                │
+│                               API   │                        │
+│                                     │                        │
+│                            ┌────────▼────────┐               │
+│                            │   PostgreSQL    │               │
+│                            │ (Content Store) │               │
+│                            └─────────────────┘               │
+│                                     ▲                         │
+│                                     │                        │
+│                            ┌────────┴────────┐               │
+│                            │  Slack Events   │               │
+│                            │   API Webhook   │               │
+│                            └─────────────────┘               │
+│                                                               │
+└─────────────────────────────────────────────────────────────┘
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Components
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Frontend (`/frontend`)
+- **Technology**: React 19+ with React Router
+- **Deployment**: GitHub Pages (static hosting)
+- **Purpose**: User-facing dashboard for viewing pod information, metrics, and initiatives
+- **Features**:
+  - Multi-page site with home overview and individual pod detail pages
+  - Two-group organizational structure (Agentic Sales Productivity, Engagement Agent)
+  - Responsive design with sidebar navigation
+  - Feedback submission forms
 
-### `npm test`
+#### Backend (`/backend`)
+- **Technology**: Node.js with Express framework
+- **Deployment**: Heroku
+- **Purpose**: REST API server and webhook handler
+- **Features**:
+  - RESTful API endpoints for pod data
+  - Slack Events API webhook integration
+  - Content management for pod information
+  - User feedback collection
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Database
+- **Technology**: PostgreSQL
+- **Hosting**: Heroku Postgres (managed database)
+- **Purpose**: Persistent storage for pod content, metrics, and user feedback
+- **Schema**: 
+  - Pods metadata (missions, owners, status)
+  - Key initiatives and milestones
+  - Impact metrics and KPIs
+  - User feedback and comments
 
-### `npm run build`
+#### Slack Integration
+- **Events API Webhook**: Receives real-time events from Slack
+- **Use Cases**:
+  - Post updates to pod channels
+  - Notifications for milestone completions
+  - Interactive feedback collection
+  - Status change alerts
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+pod-intelligence-site/
+├── backend/                 # Node.js/Express API server
+│   ├── src/
+│   │   ├── routes/         # API route handlers
+│   │   ├── models/         # Database models
+│   │   ├── controllers/    # Business logic
+│   │   └── middleware/     # Express middleware
+│   ├── package.json
+│   └── server.js           # Entry point
+├── frontend/               # React application
+│   ├── public/
+│   ├── src/
+│   │   ├── components/    # Reusable UI components
+│   │   ├── pages/         # Page components
+│   │   ├── data/          # Data configuration
+│   │   └── styles/        # CSS files
+│   └── package.json
+├── .gitignore
+├── package.json            # Root workspace configuration
+└── README.md
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
 
-### `npm run eject`
+### Prerequisites
+- Node.js 18+ and npm
+- PostgreSQL 14+ (for local development)
+- Git
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Local Development
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Frontend
+```bash
+cd frontend
+npm install
+npm start
+# Opens on http://localhost:3000
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Backend
+```bash
+cd backend
+npm install
+cp .env.example .env
+# Configure your DATABASE_URL and SLACK_SIGNING_SECRET
+npm run dev
+# Runs on http://localhost:5000
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Environment Variables
 
-## Learn More
+#### Backend (`/backend/.env`)
+```
+DATABASE_URL=postgresql://localhost:5432/pod_intelligence
+PORT=5000
+NODE_ENV=development
+SLACK_SIGNING_SECRET=your_slack_signing_secret
+SLACK_BOT_TOKEN=xoxb-your-bot-token
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Frontend
+No environment variables required for local development. Production API URL is configured in the build process.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deployment
 
-### Code Splitting
+### Frontend (GitHub Pages)
+```bash
+cd frontend
+npm run build
+npm run deploy
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Deployed to: `https://swashington-netizen.github.io/pod-intelligence-site/`
 
-### Analyzing the Bundle Size
+### Backend (Heroku)
+```bash
+cd backend
+heroku create pod-intelligence-api
+heroku addons:create heroku-postgresql:mini
+heroku config:set SLACK_SIGNING_SECRET=your_secret
+git push heroku main
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Deployed to: `https://pod-intelligence-api.herokuapp.com/`
 
-### Making a Progressive Web App
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Pods
+- `GET /api/pods` - List all pods
+- `GET /api/pods/:slug` - Get pod by slug
+- `PUT /api/pods/:slug` - Update pod content (admin)
 
-### Advanced Configuration
+### Feedback
+- `POST /api/feedback` - Submit user feedback
+- `GET /api/feedback/:podId` - Get feedback for a pod (admin)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Slack Webhooks
+- `POST /slack/events` - Slack Events API webhook endpoint
 
-### Deployment
+## Data Management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Pod content is managed via the `podsConfig.js` file in development. In production:
+- Content is stored in PostgreSQL
+- Edits made through admin interface or database migrations
+- Changes reflected immediately via API
 
-### `npm run build` fails to minify
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Create a feature branch from `main`
+2. Make your changes in the appropriate directory (`frontend/` or `backend/`)
+3. Test locally
+4. Commit with descriptive messages
+5. Push and create a pull request
+
+## Tech Stack
+
+**Frontend:**
+- React 19
+- React Router v6
+- CSS3 (custom styling, no framework)
+
+**Backend:**
+- Node.js
+- Express
+- PostgreSQL with pg driver
+- Slack Bolt SDK
+
+**DevOps:**
+- Git/GitHub
+- Heroku
+- GitHub Pages
+- GitHub Actions (CI/CD)
+
+## License
+
+Internal Salesforce project - not for public distribution.
+
+## Support
+
+For questions or issues, please contact the Agentic Sales Productivity team or submit feedback through the portal.
