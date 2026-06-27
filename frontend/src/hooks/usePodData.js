@@ -16,12 +16,35 @@ export function usePodData(podId) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const loadPodData = async () => {
+  // Fetch data on mount and when podId changes
+  useEffect(() => {
     if (!podId) {
       setError(new Error('Pod ID is required'));
       setLoading(false);
       return;
     }
+
+    const loadPodData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const podData = await fetchPod(podId);
+        setData(podData);
+      } catch (err) {
+        console.error('Error fetching pod data:', err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPodData();
+  }, [podId]);
+
+  // Refetch function for manual refresh
+  const refetch = async () => {
+    if (!podId) return;
 
     try {
       setLoading(true);
@@ -37,17 +60,12 @@ export function usePodData(podId) {
     }
   };
 
-  // Fetch data on mount and when podId changes
-  useEffect(() => {
-    loadPodData();
-  }, [podId]);
-
   // Return data, loading, error states and refetch function
   return {
     data,
     loading,
     error,
-    refetch: loadPodData,
+    refetch,
   };
 }
 

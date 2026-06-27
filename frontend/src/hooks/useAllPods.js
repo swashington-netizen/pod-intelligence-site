@@ -15,7 +15,28 @@ export function useAllPods() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const loadPods = async () => {
+  // Fetch data on mount
+  useEffect(() => {
+    const loadPods = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const podsData = await fetchAllPods();
+        setPods(podsData);
+      } catch (err) {
+        console.error('Error fetching pods:', err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPods();
+  }, []);
+
+  // Refetch function for manual refresh
+  const refetch = async () => {
     try {
       setLoading(true);
       setError(null);
@@ -30,17 +51,12 @@ export function useAllPods() {
     }
   };
 
-  // Fetch data on mount
-  useEffect(() => {
-    loadPods();
-  }, []);
-
   // Return pods, loading, error states and refetch function
   return {
     pods,
     loading,
     error,
-    refetch: loadPods,
+    refetch,
   };
 }
 
