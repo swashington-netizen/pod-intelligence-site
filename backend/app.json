@@ -1,0 +1,64 @@
+{
+  "name": "Portfolio Intelligence API",
+  "description": "Express API server for Portfolio Intelligence portal with Slack Canvas integration",
+  "repository": "https://github.com/swashington-netizen/pod-intelligence-site",
+  "logo": "https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system/assets/images/salesforce-logo.svg",
+  "keywords": [
+    "express",
+    "postgresql",
+    "slack",
+    "api",
+    "salesforce"
+  ],
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini",
+      "as": "DATABASE"
+    }
+  ],
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment (production for Heroku)",
+      "value": "production",
+      "required": true
+    },
+    "PORT": {
+      "description": "Port for the web server (Heroku sets this automatically)",
+      "value": "5000",
+      "required": false
+    },
+    "DATABASE_URL": {
+      "description": "PostgreSQL connection string (automatically set by Heroku Postgres addon)",
+      "required": false
+    },
+    "SLACK_SIGNING_SECRET": {
+      "description": "Slack app signing secret from api.slack.com/apps (Settings > Basic Information)",
+      "required": true
+    },
+    "SLACK_BOT_TOKEN": {
+      "description": "Slack bot OAuth token from api.slack.com/apps (OAuth & Permissions)",
+      "value": "xoxb-",
+      "required": true
+    },
+    "ALLOWED_ORIGIN": {
+      "description": "Frontend origin URL for CORS (e.g., https://swashington-netizen.github.io)",
+      "value": "https://swashington-netizen.github.io",
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "scripts": {
+    "postdeploy": "psql $DATABASE_URL < db/schema.sql && psql $DATABASE_URL < db/seed.sql"
+  }
+}

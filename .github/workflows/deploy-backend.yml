@@ -1,0 +1,47 @@
+name: Deploy Backend to Heroku
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - '.github/workflows/deploy-backend.yml'
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.13.15
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          appdir: backend
+          buildpack: heroku/nodejs
+
+      - name: Run database migrations
+        run: |
+          echo "Database migrations are handled by Heroku postdeploy script"
+          echo "Schema and seed data are automatically applied on first deploy"
+
+      - name: Deployment summary
+        run: |
+          echo "### :rocket: Backend Deployment Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**App URL:** https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com" >> $GITHUB_STEP_SUMMARY
+          echo "**Health Check:** https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/health" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Next Steps:**" >> $GITHUB_STEP_SUMMARY
+          echo "1. Verify health check: \`curl https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/health\`" >> $GITHUB_STEP_SUMMARY
+          echo "2. Test API: \`curl https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/api/pods\`" >> $GITHUB_STEP_SUMMARY
+          echo "3. Check logs: \`heroku logs --tail -a ${{ secrets.HEROKU_APP_NAME }}\`" >> $GITHUB_STEP_SUMMARY

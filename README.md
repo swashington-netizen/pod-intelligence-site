@@ -140,25 +140,46 @@ No environment variables required for local development. Production API URL is c
 
 ## Deployment
 
-### Frontend (GitHub Pages)
+### Quick Setup (First Time)
+
+Run the interactive setup script:
+```bash
+./scripts/deploy-setup.sh
+```
+
+This will:
+- Create Heroku app and database
+- Set environment variables
+- Guide you through GitHub secrets setup
+- Initialize database with schema and seed data
+
+### Automatic Deployment (CI/CD)
+
+Both frontend and backend deploy automatically via GitHub Actions on push to `main`:
+
+**Backend** → Heroku (`https://pod-intelligence-api.herokuapp.com`)  
+**Frontend** → GitHub Pages (`https://swashington-netizen.github.io/pod-intelligence-site`)
+
+**Required GitHub Secrets:**
+- `HEROKU_API_KEY` - Get with `heroku auth:token`
+- `HEROKU_APP_NAME` - Your Heroku app name
+- `HEROKU_EMAIL` - Your Heroku account email
+
+### Manual Deployment
+
+**Frontend:**
 ```bash
 cd frontend
-npm run build
 npm run deploy
 ```
 
-Deployed to: `https://swashington-netizen.github.io/pod-intelligence-site/`
-
-### Backend (Heroku)
+**Backend:**
 ```bash
 cd backend
-heroku create pod-intelligence-api
-heroku addons:create heroku-postgresql:mini
-heroku config:set SLACK_SIGNING_SECRET=your_secret
 git push heroku main
 ```
 
-Deployed to: `https://pod-intelligence-api.herokuapp.com/`
+See [DEPLOYMENT.md](DEPLOYMENT.md) for complete deployment guide.
 
 ## API Endpoints
 
