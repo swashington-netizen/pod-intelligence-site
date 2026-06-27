@@ -17,6 +17,10 @@ const pool = require('./db/client');
 const verifySignature = require('./slack/verifySignature');
 const { handleEvent } = require('./slack/eventHandler');
 
+// Import route handlers
+const podsRouter = require('./routes/pods');
+const feedbackRouter = require('./routes/feedback');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'http://localhost:3000';
@@ -62,86 +66,9 @@ app.get('/health', (req, res) => {
   });
 });
 
-/**
- * GET /api/pods
- * Returns all pods across all portfolios
- */
-app.get('/api/pods', async (req, res) => {
-  try {
-    const query = `
-      SELECT
-        id,
-        group_id,
-        name,
-        content,
-        canvas_id,
-        last_synced_at,
-        updated_at
-      FROM pods
-      ORDER BY group_id, name
-    `;
-
-    const result = await pool.query(query);
-
-    res.json({
-      success: true,
-      count: result.rows.length,
-      pods: result.rows
-    });
-  } catch (error) {
-    console.error('Error fetching pods:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch pods',
-      message: error.message
-    });
-  }
-});
-
-/**
- * GET /api/pods/:podId
- * Returns a single pod by ID
- */
-app.get('/api/pods/:podId', async (req, res) => {
-  try {
-    const { podId } = req.params;
-
-    const query = `
-      SELECT
-        id,
-        group_id,
-        name,
-        content,
-        canvas_id,
-        last_synced_at,
-        updated_at
-      FROM pods
-      WHERE id = $1
-    `;
-
-    const result = await pool.query(query, [podId]);
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({
-        success: false,
-        error: 'Pod not found',
-        podId
-      });
-    }
-
-    res.json({
-      success: true,
-      pod: result.rows[0]
-    });
-  } catch (error) {
-    console.error('Error fetching pod:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch pod',
-      message: error.message
-    });
-  }
-});
+// Mount API route handlers
+app.use('/api/pods', podsRouter);
+app.use('/api/feedback', feedbackRouter);
 
 /**
  * POST /slack/events

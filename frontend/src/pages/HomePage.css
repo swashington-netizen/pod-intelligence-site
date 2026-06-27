@@ -139,3 +139,20 @@
     font-size: 24px;
   }
 }
+
+/* Loading and Error States */
+.loading-message,
+.error-message {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+  color: var(--color-neutral-600);
+}
+
+.error-message {
+  color: var(--color-critical);
+}
+
+.error-message p {
+  margin: 10px 0;
+}
